@@ -124,8 +124,8 @@ const UserForm = (props) => {
       <div>
         <h4>Form Data</h4>
         <p>First Name: {validation ? "" : <span>{firstName}</span>} </p>
-        <p>Last Name: {lastName} </p>
-        <p>Email: {email} </p>
+        <p>Last Name: {validation ? "" : <span>{lastName}</span>} </p> 
+        <p>Email: {validation ? "" : <span>{email}</span>} </p> 
       </div>
     </div>
   );
