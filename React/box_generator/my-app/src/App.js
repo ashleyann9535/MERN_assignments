@@ -4,6 +4,7 @@ import Form from "./components/Form";
 
 function App() {
   const [boxColorArray, setBoxColorArray] = useState([]);
+  const [boxSizeArray, setBoxSizeArray] = useState([])
 
   return (
     <div className="App">
@@ -21,7 +22,7 @@ function App() {
           </div>
         ))
       }
-      <Form boxColorArray={boxColorArray} setBoxColorArray={setBoxColorArray} />
+      <Form boxColorArray={boxColorArray} setBoxColorArray={setBoxColorArray} boxSizeArray = {boxSizeArray} setBoxSizeArray = {setBoxSizeArray} />
     </div>
   );
 }

@@ -1,13 +1,15 @@
 import { useState } from "react";
 
 const Form = (props) => {
-    const {boxColorArray, setBoxColorArray} = props;
+    const {boxColorArray, setBoxColorArray, boxSizeArray, setBoxSizeArray} = props;
     const [color, setColor] = useState('')
+    const [size, setSize] = useState()
 
     const submitHandler = (event) => {
         event.preventDefault();
         setBoxColorArray([...boxColorArray, color]);
-        console.log(color);
+        setBoxSizeArray([...boxSizeArray, size])
+        setSize();
         setColor('');
     }
 
@@ -15,7 +17,11 @@ const Form = (props) => {
     <div>
       <form onSubmit={submitHandler}>
         <label>Color: </label>
-        <input type="text" name="color" value={color} onChange={(event) => setColor(event.target.value)} />
+        <input type="text" name="color" value={color} onChange={(e) => setColor(e.target.value)} />
+        <br />
+        <label>Size: </label>
+        <input type="number" name="size" value={size} onChange={ (e) => setSize(e.target.value)} />
+        <br />
         <input type="submit" value="Add" />
       </form>
     </div>
