@@ -10,7 +10,10 @@ function App() {
       .get("https://pokeapi.co/api/v2/pokemon?limit=807&offset=0")
       .then((response) => {
         setCharacters(response.data.results);
-      });
+      })
+      .catch((err) =>{
+        console.log(err)
+      })
   }, []);
 
   console.log(characters);
