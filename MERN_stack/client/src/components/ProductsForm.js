@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import {Link} from 'react-router-dom';
 
 const ProductsForm = () => {
     const [title, setTitle] = useState('');
@@ -26,7 +27,6 @@ const ProductsForm = () => {
 
   return (
     <div>
-        <h1>Product Manager</h1>
         <form onSubmit={submitHandler}>
             <label>Title:
                 <input type='text' value={title} onChange={e => setTitle(e.target.value)}/>
