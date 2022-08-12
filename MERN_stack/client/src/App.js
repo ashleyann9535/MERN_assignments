@@ -8,8 +8,9 @@ import NavBar from './components/NavBar';
 function App() {
   return (
     <div className="App">
-      <NavBar />
+      
       <BrowserRouter>
+      <NavBar />
         <Routes>
           <Route path='/' element={<ProductsForm/>} />
           <Route path='/home' element={<Main/>} />

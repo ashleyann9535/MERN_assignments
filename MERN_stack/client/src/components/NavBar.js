@@ -7,7 +7,8 @@ const NavBar = () => {
         
         <div>
             <h1>Project Manager</h1>
-            <NavLink to="/home" className="m-3">Home</NavLink>
+            <NavLink to="/home">Home</NavLink>
+            <span> | </span>
             <NavLink to="/" className="">Form</NavLink>
         </div>
       </div>
