@@ -1,33 +1,15 @@
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const PersonForm = (props) => {
-  //keep track of what is being typed via useState hook
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const {people, setPeople} = props;
-  //handler when the form is submitted
-  const onSubmitHandler = (e) => {
-    //prevent default behavior of the submit
-    e.preventDefault();
-    //make a post request to create a new person
-    axios
-      .post("http://localhost:8000/api/people", {
-        firstName, // this is shortcut syntax for firstName: firstName,
-        lastName, // this is shortcut syntax for lastName: lastName
-      })
-      .then((res) => {
-        console.log(res); // always console log to get used to tracking your data!
-        console.log(res.data);
-        // we will update the lifted state of our people array 
-        // to include the current value in state plus the single 
-        // new object created and returned from our post request. 
-        setPeople([...people, res.data]);
-        setFirstName('')
-        setLastName('')
-      })
-      .catch((err) => console.log(err));
-  };
+  const { initialFirstName, initialLastName, onSubmitProp } = props;
+    const [firstName, setFirstName] = useState(initialFirstName);
+    const [lastName, setLastName] = useState(initialLastName);
+    
+    const onSubmitHandler = e => {
+        e.preventDefault();
+        onSubmitProp({ firstName, lastName });
+    }
 
   return (
     <form onSubmit={onSubmitHandler}>
@@ -38,12 +20,20 @@ const PersonForm = (props) => {
         {/* When the user types in this input, our onChange synthetic event 
             runs this arrow function, setting that event's target's (input) 
             value (what's typed into the input) to our updated state   */}
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
       </p>
       <p>
         <label>Last Name</label>
         <br />
-        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
       </p>
       <input type="submit" />
     </form>

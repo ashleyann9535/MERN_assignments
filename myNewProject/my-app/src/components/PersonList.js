@@ -1,44 +1,39 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import DeleteButton from "./DeleteButton";
 
 const PersonList = (props) => {
-  // We deconstruct getter and setter which were passed down
-  // via props by the parent component (app.js) to our child
-  // component (PersonList.js). Now we can easily use the getter
-  // and setter without having to write props.getter or props.setter every time
-
-  const { people, setPeople } = props;
-
+  const [people, setPeople] = useState([]);
+  
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/people")
-      .then((res) => {
-        console.log(res.data);
-        setPeople(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => setPeople(res.data));
   }, []);
+  
+  const removeFromDom = (personId) => {
+    setPeople(people.filter((person) => person._id !== personId));
+  };
 
   return (
     <div>
-      {people.map((person, index) => {
+      {people.map((person, idx) => {
         return (
-          <div key={index}>
-            <p>
-              {person.lastName}, {person.firstName}{" "}
-            </p>
-            <Link to={`/person/${person._id}`}>
-              {" "}
-              {person.firstName}'s Page!{" "}
+          <p key={idx}>
+            <Link to={"/people/" + person._id}>
+              {person.lastName}, {person.firstName}
             </Link>
-          </div>
+            |<Link to={`/people/edit/${person._id}`}>Edit</Link>
+            |
+            <DeleteButton
+              personId={person._id}
+              successCallback={() => removeFromDom(person._id)}
+            />
+          </p>
         );
       })}
     </div>
   );
 };
-
 export default PersonList;
