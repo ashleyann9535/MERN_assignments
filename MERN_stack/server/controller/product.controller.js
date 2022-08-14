@@ -37,6 +37,22 @@ module.exports.getProductById = (req, res) => {
 
 module.exports.updateById = (req, res) => {
   Product.updateOne({_id: req.params.id}, req.body, {new:true})
-    .then((updateProduct) => res.json(updateProduct))
-    .catch(err => res.json(err))
+    .then((updateProduct) => {
+      console.log(updateProduct)
+      res.json(updateProduct)
+    })
+    .catch((err) =>{
+      res.status(400).json({message: 'something went wrong with delete', error: err.errors})
+    })
+}
+
+module.exports.deleteById = (req, res) => {
+  Product.deleteOne({_id: req.params.id})
+    .then((product) =>{
+      console.log(product);
+      res.json(product);
+    })
+    .catch((err) =>{
+      res.status(400).json({message: 'something went wrong with delete', error: err.errors})
+    })
 }

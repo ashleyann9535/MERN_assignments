@@ -15,6 +15,19 @@ const Main = () => {
         })
     }, [])
 
+    const deleteHandler = (id) => {
+        axios.delete(`http://localhost:8000/api/product/${id}`)
+        .then((res) => {
+            const newList = list.filter((product) => {
+                return product._id !== id
+            })
+            setList(newList)
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+    }
+
   return (
     <div>
         {
@@ -23,6 +36,7 @@ const Main = () => {
                     <Link to={`/oneproduct/${product._id}`}>{product.title}</Link>
                     <p>{product.price}</p>
                     <p>{product.description}</p>
+                    <button onClick={() =>deleteHandler(product._id)} >Remove Product</button>
                 </div>
             ))
         }
