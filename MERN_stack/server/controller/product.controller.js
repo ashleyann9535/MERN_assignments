@@ -18,7 +18,7 @@ module.exports.getProducts = (req, res) => {
       console.log(products);
       res.json(products);
     })
-    .then((err) => {
+    .catch((err) => {
       console.log(err);
       res.status(400).json({ message: 'something went wrong with create', error: err.errors });
     });
@@ -34,3 +34,9 @@ module.exports.getProductById = (req, res) => {
         res.status(400).json({ message: 'something went wrong with create', error: err.errors });
     });
 };
+
+module.exports.updateById = (req, res) => {
+  Product.updateOne({_id: req.params.id}, req.body, {new:true})
+    .then((updateProduct) => res.json(updateProduct))
+    .catch(err => res.json(err))
+}
