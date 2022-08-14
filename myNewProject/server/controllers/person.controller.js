@@ -12,9 +12,13 @@ module.exports.index = (req, res) => {
 module.exports.createPerson = (request, response) => {
   // Mongoose's "create" method is run using our Person model to add a new person to our db's person collection.
   // request.body will contain something like {firstName: "Billy", lastName: "Washington"} from the client
-  Person.create(request.body) //This will use whatever the body of the client's request sends over
+  const {firstName, lastName} = request.body
+  Person.create({
+    firstName,
+    lastName
+  }) //This will use whatever the body of the client's request sends over
     .then((person) => response.json(person))
-    .catch((err) => response.json(err));
+    .catch((err) => response.status(400).json(err));
 };
 
 module.exports.getAllPeople = (request, response) => {
@@ -40,7 +44,7 @@ module.exports.updatePerson = (request, response) => {
     new: true,
   })
     .then((updatedPerson) => response.json(updatedPerson))
-    .catch((err) => response.json(err));
+    .catch((err) => response.status(400).json(err));
 };
 
 module.exports.deletePerson = (request, response) => {

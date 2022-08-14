@@ -5,6 +5,7 @@ import PersonList from '../components/PersonList';
 
 const Main = (props) => {
     const [people, setPeople] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/people')
@@ -21,7 +22,10 @@ const Main = (props) => {
                 console.log(res.data)
                 setPeople([...people, res.data])
             })
-            .catch((err)=>console.log(err))
+            .catch((err)=>{
+                console.log(err)
+                setErrors(err.response.data.errors)
+            })
     }
 
     const removeFromDom = personId => {
@@ -38,7 +42,7 @@ const Main = (props) => {
     return (
         <div>
     	{/* PersonForm and Person List can both utilize the getter and setter established in their parent component: */}
-           <PersonForm onSubmitProp={createPerson} initialFirstName="" initialLastName="" />
+           <PersonForm onSubmitProp={createPerson} initialFirstName="" initialLastName="" errors={errors} />
             <hr/>
            <PersonList personList={people} removeFromDom={removeFromDom} />
         </div>
