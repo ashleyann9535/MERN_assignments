@@ -32,7 +32,15 @@ const Main = () => {
           </tr>
         </thead>
         <tbody>
-            {list.map((author, index) => (
+            {list.sort((a,b) =>{
+              if(a.name<b.name){
+                return -1;
+              }if (a.name>b.name){
+                return 1;
+              }
+              return 0;
+            })
+            .map((author, index) => (
           <tr key={index}>
                 <td>{author.name}</td>
                 <td>
